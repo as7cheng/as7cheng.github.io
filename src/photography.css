@@ -1,0 +1,365 @@
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap");
+
+:root {
+  color: #171717;
+  background: #f4f3f0;
+  font-family: "EB Garamond", Garamond, "Times New Roman", serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: #f4f3f0;
+}
+
+body.contact-is-open {
+  overflow: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.photography-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: clamp(1.3rem, 3vw, 2.4rem) clamp(1.25rem, 3.8vw, 3.6rem) 1.2rem;
+  overflow: hidden;
+}
+
+.photography-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.photography-nav nav {
+  display: flex;
+  gap: clamp(1rem, 2.5vw, 2.2rem);
+}
+
+.photography-nav a,
+.photography-nav button {
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+
+.photography-nav a:hover,
+.photography-nav a:focus-visible,
+.photography-nav button:hover,
+.photography-nav button:focus-visible {
+  opacity: 0.48;
+  outline: none;
+}
+
+.photography-hero {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
+}
+
+.photography-intro {
+  max-width: 25rem;
+  margin-bottom: clamp(0.8rem, 1.8vw, 1.5rem);
+  font-size: clamp(0.74rem, 1vw, 0.9rem);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: 0.03em;
+}
+
+.photography-intro p {
+  margin: 0 0 0.25rem;
+}
+
+.photography-intro span {
+  color: #73716e;
+  font-size: 0.7em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.photography-page h1 {
+  width: 100%;
+  margin: 0;
+  font-size: clamp(4.6rem, 12.8vw, 12.5rem);
+  font-weight: 500;
+  line-height: 0.76;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.photography-page h1 span {
+  display: inline;
+}
+
+.contact-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.3rem, 3vw, 2.4rem) clamp(1.25rem, 3.8vw, 3.6rem);
+  overflow-y: auto;
+  color: #171717;
+  background: #eeede9;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition:
+    transform 650ms cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 250ms ease,
+    visibility 650ms;
+}
+
+.contact-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.contact-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.contact-header button {
+  padding: 0;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.contact-header button:hover,
+.contact-header button:focus-visible {
+  opacity: 0.48;
+  outline: none;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1fr);
+  gap: clamp(3rem, 10vw, 11rem);
+  width: min(76rem, 100%);
+  margin: auto;
+  padding: clamp(6rem, 13vh, 10rem) 0 4rem;
+}
+
+.contact-heading > p {
+  margin: 0 0 1.5rem;
+  color: #73716e;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-heading h2 {
+  max-width: 10ch;
+  margin: 0;
+  font-size: clamp(3.2rem, 6vw, 6rem);
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form label {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 1.4rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(23, 23, 23, 0.28);
+}
+
+.contact-form label:first-child {
+  border-top: 1px solid rgba(23, 23, 23, 0.28);
+}
+
+.contact-form label > span {
+  padding-top: 0.16rem;
+  color: #73716e;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0;
+  color: #171717;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  background: rgba(23, 23, 23, 0.025);
+}
+
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0 !important;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.turnstile-widget {
+  width: 100%;
+  min-height: 65px;
+  margin-top: 1.35rem;
+}
+
+.contact-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.contact-submit-row button,
+.contact-success button {
+  padding: 0.75rem 1.2rem;
+  color: #f4f3f0;
+  background: #171717;
+  border: 1px solid #171717;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.contact-submit-row button:hover:not(:disabled),
+.contact-submit-row button:focus-visible,
+.contact-success button:hover,
+.contact-success button:focus-visible {
+  color: #171717;
+  background: transparent;
+  outline: none;
+}
+
+.contact-submit-row button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.contact-submit-row p {
+  margin: 0;
+  color: #8c3f36;
+  font-size: 0.78rem;
+}
+
+.contact-success {
+  align-self: center;
+  border-top: 1px solid rgba(23, 23, 23, 0.28);
+  padding-top: 1.5rem;
+}
+
+.contact-success p {
+  margin: 0 0 0.25rem;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.contact-success span {
+  display: block;
+  margin-bottom: 2rem;
+  color: #73716e;
+}
+
+@media (max-width: 760px) {
+  .photography-page {
+    padding-bottom: 1.5rem;
+  }
+
+  .photography-page h1 {
+    font-size: clamp(4.2rem, 21vw, 7rem);
+    line-height: 0.74;
+    white-space: normal;
+  }
+
+  .photography-page h1 span {
+    display: block;
+  }
+
+  .photography-intro {
+    max-width: 18rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .contact-content {
+    display: block;
+    margin: 0;
+    padding-top: clamp(5rem, 13vh, 8rem);
+  }
+
+  .contact-heading {
+    margin-bottom: 3rem;
+  }
+
+  .contact-heading h2 {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .contact-form label {
+    grid-template-columns: 4rem 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

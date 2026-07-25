@@ -323,7 +323,9 @@ export default function App() {
       const actions: Partial<Record<CommandName, () => void>> = {
         about: () => setActiveView("about"),
         home: () => setActiveView("home"),
-        photography: () => showToast("Photography archive: coming next."),
+        photography: () => {
+          window.location.href = "/studio/";
+        },
         github: () => window.open("https://github.com/as7cheng", "_blank", "noopener"),
         linkedin: () =>
           window.open("https://www.linkedin.com/in/anthonysscc/", "_blank", "noopener"),

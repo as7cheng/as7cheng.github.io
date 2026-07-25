@@ -1,0 +1,21 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "anthony-studio-contact",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-24",
+  "routes": [
+    {
+      "pattern": "anthonysc.com/api/contact",
+      "zone_name": "anthonysc.com"
+    }
+  ],
+  "vars": {
+    "CONTACT_FROM": "studio@anthonysc.com"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_sender_addresses": ["studio@anthonysc.com"]
+    }
+  ]
+}
