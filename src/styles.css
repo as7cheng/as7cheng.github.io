@@ -47,14 +47,14 @@ body::before {
 }
 
 body::after {
-  /* Tarantula Nebula — NASA, ESA, CSA, STScI, Webb ERO Production Team */
+  /* Webb's First Deep Field — NASA, ESA, CSA, STScI */
   position: fixed;
   inset: -24px;
   z-index: 0;
   content: "";
   background:
     linear-gradient(rgba(4, 7, 18, 0.58), rgba(5, 8, 20, 0.76)),
-    url("/images/tarantula-nebula.png") center / cover no-repeat;
+    url("/images/webb-first-deep-field.jpg") center / cover no-repeat;
   filter: blur(8px) saturate(0.78);
   transform: scale(1.025);
 }
