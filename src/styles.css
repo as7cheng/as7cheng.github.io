@@ -124,9 +124,25 @@ input {
 }
 
 .light {
+  display: block;
   width: 12px;
   height: 12px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.light:hover {
+  transform: scale(1.16);
+}
+
+.light:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
 }
 
 .light:nth-child(1) {
@@ -157,6 +173,21 @@ input {
   font-size: 0.7rem;
 }
 
+.profile-banner {
+  width: 100%;
+  aspect-ratio: 1824 / 503;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(246, 189, 117, 0.32);
+  background: #951d70;
+}
+
+.profile-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .main-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -164,12 +195,23 @@ input {
   border-bottom: 1px dashed var(--line);
 }
 
+.identity-column {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-width: 0;
+  border-right: 1px dashed var(--line);
+}
+
 .identity {
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: clamp(1.4rem, 2.6vw, 2rem);
-  border-right: 1px dashed var(--line);
+}
+
+.portrait-section {
+  padding: 0.55rem;
+  border-top: 1px dashed var(--line);
 }
 
 h1 {
@@ -190,30 +232,15 @@ h1 span {
   font-style: normal;
 }
 
-.portrait-frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1824 / 738;
-  margin: 0;
-  overflow: hidden;
-  background: #9b006f;
-  border: 1px solid rgba(246, 189, 117, 0.42);
-  border-radius: 3px;
-}
-
-.portrait-frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: saturate(0.88) contrast(1.04);
+.identity-name {
+  font-size: clamp(3rem, 6vw, 5.35rem);
 }
 
 .profile-meta {
   margin-top: 0.85rem;
   color: var(--muted);
   font-size: 0.74rem;
-  text-align: center;
+  text-align: left;
 }
 
 .profile-meta p {
@@ -762,11 +789,18 @@ h1 span {
     border-left: 0;
   }
 
+  .identity-column {
+    border-right: 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
   .identity {
     min-height: 0;
     padding: 1.4rem;
-    border-right: 0;
-    border-bottom: 1px dashed var(--line);
+  }
+
+  .portrait-section {
+    padding: 0.45rem;
   }
 
   .summary-block,

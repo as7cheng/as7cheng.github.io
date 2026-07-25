@@ -45,12 +45,19 @@ interface ToastState {
 
 type ViewName = "home" | "about";
 
-function WindowControls() {
+function WindowControls({ onReset }: { onReset: () => void }) {
   return (
-    <div className="lights" aria-hidden="true">
-      <span className="light" />
-      <span className="light" />
-      <span className="light" />
+    <div className="lights" aria-label="Terminal window controls">
+      {["Close", "Minimize", "Maximize"].map((label) => (
+        <button
+          className="light"
+          key={label}
+          type="button"
+          aria-label={`${label} terminal and restart loading`}
+          title={`${label} / restart`}
+          onClick={onReset}
+        />
+      ))}
     </div>
   );
 }
@@ -130,21 +137,28 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
 
 function IdentityPanel() {
   return (
-    <section className="identity" id="about">
-      <figure
-        className="portrait-frame reveal"
-        style={{ "--delay": "90ms" } as React.CSSProperties}
-      >
-        <img
-          src="/images/img1.jpg?v=20260724"
-          alt="A colorful thermal-style portrait of Anthony Cheng wearing sunglasses"
-        />
-      </figure>
-      <div className="profile-meta reveal" style={{ "--delay": "150ms" } as React.CSSProperties}>
-        <p>Software Engineer · Photographer</p>
-        <p>New York City</p>
-      </div>
-    </section>
+    <div className="identity-column">
+      <section className="identity" id="about">
+        <h1 className="identity-name reveal" style={{ "--delay": "90ms" } as React.CSSProperties}>
+          Anthony <span>Cheng</span>
+        </h1>
+        <div className="profile-meta reveal" style={{ "--delay": "150ms" } as React.CSSProperties}>
+          <p>Software Engineer · Photographer</p>
+          <p>New York City</p>
+        </div>
+      </section>
+      <section className="portrait-section" aria-label="Portrait">
+        <figure
+          className="profile-banner reveal"
+          style={{ "--delay": "190ms" } as React.CSSProperties}
+        >
+          <img
+            src="/images/profile-banner.jpg?v=20260725"
+            alt="Colorful thermal-style portrait of Anthony Cheng wearing sunglasses"
+          />
+        </figure>
+      </section>
+    </div>
   );
 }
 
@@ -350,6 +364,13 @@ export default function App() {
     setToast({ id: toastId.current, message });
   }, []);
 
+  const resetTerminal = useCallback(() => {
+    setActiveView("home");
+    setToast(null);
+    setBooted(false);
+    window.scrollTo({ top: 0 });
+  }, []);
+
   const runCommand = useCallback(
     (rawCommand: string) => {
       const normalizedCommand = rawCommand
@@ -378,7 +399,7 @@ export default function App() {
       if (command) {
         actions[command]();
       } else {
-        showToast(`Command not found: ${normalizedCommand}. Try “help”.`);
+        showToast(`is ${normalizedCommand} a valid command? I'm not convinced`);
       }
     },
     [showToast],
@@ -417,9 +438,10 @@ export default function App() {
       <div className="site-shell">
         <section className={`terminal ${booted ? "ready" : ""}`} aria-label="Portfolio terminal">
           <header className="titlebar">
-            <WindowControls />
+            <WindowControls onReset={resetTerminal} />
             <div className="path">
-              <span>anthony@cheng</span> ~/portfolio{activeView === "about" ? "/about" : ""}
+              <span>user@anthonysc</span> ~/portfolio
+              {booted ? (activeView === "about" ? "/about" : "/home") : ""}
             </div>
             <div className="status">● online</div>
           </header>
