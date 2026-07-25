@@ -1,9 +1,12 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
+const BOOT_PROGRESS = "__progress__";
+
 const bootLines = [
   "Initializing personal workspace...",
   "Loading engineering modules...",
   "Connecting projects...",
+  BOOT_PROGRESS,
   "✓ profile ready",
   "",
   "Location: New York City",
@@ -21,6 +24,19 @@ type CommandName =
   | "linkedin"
   | "clear"
   | "help";
+
+const commandAliases: Record<string, CommandName> = {
+  about: "about",
+  home: "home",
+  photography: "photography",
+  phtography: "photography",
+  photo: "photography",
+  studio: "photography",
+  github: "github",
+  linkedin: "linkedin",
+  clear: "clear",
+  help: "help",
+};
 
 interface ToastState {
   id: number;
@@ -50,23 +66,43 @@ function BootScreen({ onFinish }: { onFinish: () => void }) {
       return;
     }
 
-    const timer = window.setInterval(() => {
-      setVisibleCount((count) => {
-        if (count >= bootLines.length) {
-          window.clearInterval(timer);
-          return count;
-        }
-        return count + 1;
-      });
-    }, 115);
+    if (visibleCount >= bootLines.length) return;
 
-    return () => window.clearInterval(timer);
-  }, []);
+    const previousLine = bootLines[visibleCount - 1];
+    const delay = previousLine === BOOT_PROGRESS ? 950 : 115;
+    const timer = window.setTimeout(() => {
+      setVisibleCount((count) => count + 1);
+    }, delay);
+
+    return () => window.clearTimeout(timer);
+  }, [visibleCount]);
 
   return (
     <div className="boot" aria-live="polite">
       <div className="boot-lines">
         {bootLines.slice(0, visibleCount).map((line, index) => {
+          if (line === BOOT_PROGRESS) {
+            return (
+              <div
+                className="boot-progress"
+                key={BOOT_PROGRESS}
+                role="progressbar"
+                aria-label="Loading profile"
+              >
+                <span className="boot-progress-label">loading profile</span>
+                <span className="boot-progress-bracket" aria-hidden="true">
+                  [
+                </span>
+                <span className="boot-progress-track" aria-hidden="true">
+                  <span className="boot-progress-fill" />
+                </span>
+                <span className="boot-progress-bracket" aria-hidden="true">
+                  ]
+                </span>
+              </div>
+            );
+          }
+
           const className = line.startsWith("✓")
             ? "ok"
             : line.startsWith("anthony")
@@ -316,15 +352,20 @@ export default function App() {
 
   const runCommand = useCallback(
     (rawCommand: string) => {
-      const command = rawCommand.trim().toLowerCase().replace(/^\//, "") as CommandName;
+      const normalizedCommand = rawCommand
+        .trim()
+        .toLowerCase()
+        .replace(/^command\s+/, "")
+        .replace(/^\//, "");
 
-      if (!command) return;
+      if (!normalizedCommand) return;
 
-      const actions: Partial<Record<CommandName, () => void>> = {
+      const command = commandAliases[normalizedCommand];
+      const actions: Record<CommandName, () => void> = {
         about: () => setActiveView("about"),
         home: () => setActiveView("home"),
         photography: () => {
-          window.location.href = "/studio/";
+          window.location.assign("/studio/");
         },
         github: () => window.open("https://github.com/as7cheng", "_blank", "noopener"),
         linkedin: () =>
@@ -334,11 +375,10 @@ export default function App() {
           showToast("Commands: home · about · photography · linkedin · github · clear"),
       };
 
-      const action = actions[command];
-      if (action) {
-        action();
+      if (command) {
+        actions[command]();
       } else {
-        showToast(`Command not found: ${command}. Try “help”.`);
+        showToast(`Command not found: ${normalizedCommand}. Try “help”.`);
       }
     },
     [showToast],

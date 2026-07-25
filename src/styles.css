@@ -587,6 +587,59 @@ h1 span {
   color: var(--accent);
 }
 
+.boot-progress {
+  display: grid;
+  grid-template-columns: auto auto minmax(7rem, 18rem) auto;
+  align-items: center;
+  width: min(100%, 32rem);
+  gap: 0.42rem;
+  margin: 0.38rem 0 0.48rem;
+  color: var(--faint);
+}
+
+.boot-progress-label {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.boot-progress-bracket {
+  color: var(--accent);
+}
+
+.boot-progress-track {
+  height: 0.62rem;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(125, 249, 210, 0.1) 0,
+    rgba(125, 249, 210, 0.1) 0.48rem,
+    transparent 0.48rem,
+    transparent 0.62rem
+  );
+}
+
+.boot-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent-2) 0,
+    var(--accent-2) 0.48rem,
+    transparent 0.48rem,
+    transparent 0.62rem
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: boot-progress 850ms steps(18, end) forwards;
+}
+
+@keyframes boot-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .boot-action {
   width: fit-content;
   padding: 0;
@@ -739,6 +792,10 @@ h1 span {
 
   .boot {
     min-height: calc(100vh - 52px);
+  }
+
+  .boot-progress {
+    grid-template-columns: auto auto minmax(4rem, 1fr) auto;
   }
 }
 

@@ -156,30 +156,46 @@ export default function PhotographyPage() {
   return (
     <>
       <main className="photography-page">
-        <header className="photography-nav">
-          <a href="/">Portfolio</a>
-          <nav aria-label="Photography">
-            <a href="/">About</a>
-            <button
-              type="button"
-              onClick={() => {
-                setSubmitState("idle");
-                setContactOpen(true);
-              }}
-            >
-              Contact
-            </button>
-          </nav>
-        </header>
+        <section className="photography-slide photography-landing">
+          <header className="photography-nav">
+            <a href="/">Portfolio</a>
+            <nav aria-label="Photography">
+              <a href="/">About</a>
+              <button
+                type="button"
+                onClick={() => {
+                  setSubmitState("idle");
+                  setContactOpen(true);
+                }}
+              >
+                Contact
+              </button>
+            </nav>
+          </header>
 
-        <section className="photography-hero" aria-labelledby="photography-title">
-          <div className="photography-intro">
-            <p>Photographing quiet moments, distant places, and the strange beauty in between.</p>
-            <span>New York · personal archive</span>
+          <div className="photography-hero" aria-labelledby="photography-title">
+            <div className="photography-intro">
+              <p>
+                Photographing quiet moments, distant places, and the strange beauty in between.
+              </p>
+              <span>New York · personal archive</span>
+            </div>
+            <h1 id="photography-title">
+              Anthony <span>Cheng</span>
+            </h1>
           </div>
-          <h1 id="photography-title">
-            Anthony <span>Cheng</span>
-          </h1>
+        </section>
+
+        <section className="photography-slide archive-preview" aria-labelledby="archive-title">
+          <header className="archive-header">
+            <span>Archive / 01</span>
+            <span>Selected works</span>
+          </header>
+          <div className="archive-coming-soon">
+            <p>Photography archive</p>
+            <h2 id="archive-title">Coming soon.</h2>
+            <span>A collection of places, people, and moments is being developed.</span>
+          </div>
         </section>
       </main>
 
