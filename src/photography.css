@@ -42,6 +42,7 @@ textarea {
 .photography-page {
   width: 100%;
   height: 100svh;
+  height: 100dvh;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: contain;
@@ -57,6 +58,7 @@ textarea {
 .photography-slide {
   width: 100%;
   min-height: 100svh;
+  min-height: 100dvh;
   padding: clamp(1.3rem, 3vw, 2.4rem) clamp(1.25rem, 3.8vw, 3.6rem) 1.2rem;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -394,14 +396,24 @@ textarea {
 }
 
 @media (max-width: 760px) {
+  .photography-page {
+    height: 100svh;
+    height: 100dvh;
+  }
+
   .photography-slide {
-    padding-bottom: 1.5rem;
+    min-height: 100svh;
+    min-height: 100dvh;
+    padding-top: max(1.3rem, env(safe-area-inset-top));
+    padding-right: max(1.25rem, env(safe-area-inset-right));
+    padding-bottom: max(6rem, calc(env(safe-area-inset-bottom) + 4.5rem));
+    padding-left: max(1.25rem, env(safe-area-inset-left));
   }
 
   .photography-page h1 {
     display: block;
-    font-size: clamp(3rem, min(16.5vw, 14svh), 6.25rem);
-    line-height: 0.82;
+    font-size: clamp(3rem, min(15.5vw, 11svh), 5.5rem);
+    line-height: 0.84;
     text-align: left;
     white-space: normal;
   }
@@ -416,7 +428,19 @@ textarea {
   }
 
   .archive-coming-soon h2 {
-    font-size: clamp(4rem, 19vw, 7rem);
+    max-width: 7ch;
+    font-size: clamp(3.6rem, 17vw, 6rem);
+    line-height: 0.86;
+  }
+
+  .archive-coming-soon {
+    margin: auto 0;
+    padding: 2rem 0;
+  }
+
+  .archive-coming-soon > span {
+    max-width: 18rem;
+    margin-top: 1.5rem;
   }
 
   .contact-content {
