@@ -134,8 +134,8 @@ textarea {
 .photography-page h1 {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 0.2em;
+  justify-content: flex-start;
+  gap: 0.24em;
   width: 100%;
   margin: 0;
   font-size: clamp(4.4rem, 10.65vw, 12.5rem);
