@@ -12,6 +12,37 @@
   "vars": {
     "CONTACT_FROM": "studio@anthonysc.com"
   },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  },
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      "namespace_id": "41001",
+      "simple": {
+        "limit": 3,
+        "period": 60
+      }
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "CONTACT_GUARD",
+        "class_name": "ContactGuard"
+      }
+    ]
+  },
+  "exports": {
+    "ContactGuard": {
+      "type": "durable-object",
+      "storage": "sqlite"
+    }
+  },
   "send_email": [
     {
       "name": "EMAIL",

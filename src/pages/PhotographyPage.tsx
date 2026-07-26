@@ -4,7 +4,7 @@ const turnstileSiteKey = import.meta.env.DEV
   ? "1x00000000000000000000AA"
   : import.meta.env.VITE_TURNSTILE_SITE_KEY || "0x4AAAAAAD9QRZr8_foFWHzw";
 
-type SubmitState = "idle" | "submitting" | "success" | "error";
+type SubmitState = "idle" | "submitting" | "success" | "error" | "rate-limited";
 
 interface TurnstileApi {
   render: (
@@ -13,6 +13,7 @@ interface TurnstileApi {
       sitekey: string;
       theme: "light";
       size: "flexible";
+      action: "contact";
       callback: (token: string) => void;
       "expired-callback": () => void;
       "error-callback": () => void;
@@ -51,6 +52,7 @@ function TurnstileWidget({
         sitekey: turnstileSiteKey,
         theme: "light",
         size: "flexible",
+        action: "contact",
         callback: onToken,
         "expired-callback": () => onToken(""),
         "error-callback": () => onToken(""),
@@ -137,6 +139,13 @@ export default function PhotographyPage() {
           turnstileToken,
         }),
       });
+
+      if (response.status === 429) {
+        setSubmitState("rate-limited");
+        setTurnstileToken("");
+        setResetSignal((value) => value + 1);
+        return;
+      }
 
       if (!response.ok) {
         throw new Error("Contact request failed");
@@ -258,6 +267,9 @@ export default function PhotographyPage() {
                 </button>
                 {submitState === "error" && (
                   <p role="alert">Something went wrong. Please try again.</p>
+                )}
+                {submitState === "rate-limited" && (
+                  <p role="alert">Too many messages. Please try again later.</p>
                 )}
               </div>
             </form>
