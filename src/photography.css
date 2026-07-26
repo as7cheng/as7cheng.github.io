@@ -130,18 +130,23 @@ textarea {
 }
 
 .photography-page h1 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.2em;
   width: 100%;
   margin: 0;
-  font-size: clamp(4.6rem, 12.8vw, 12.5rem);
+  font-size: clamp(4.4rem, 10.65vw, 12.5rem);
   font-weight: 500;
-  line-height: 0.76;
+  line-height: 0.8;
   letter-spacing: -0.045em;
+  text-align: left;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .photography-page h1 span {
-  display: inline;
+  display: block;
 }
 
 .archive-preview {
@@ -394,8 +399,10 @@ textarea {
   }
 
   .photography-page h1 {
-    font-size: clamp(4.2rem, 21vw, 7rem);
-    line-height: 0.74;
+    display: block;
+    font-size: clamp(3rem, min(16.5vw, 14svh), 6.25rem);
+    line-height: 0.82;
+    text-align: left;
     white-space: normal;
   }
 

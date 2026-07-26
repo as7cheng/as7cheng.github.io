@@ -189,8 +189,9 @@ export default function PhotographyPage() {
               </p>
               <span>New York · personal archive</span>
             </div>
-            <h1 id="photography-title">
-              Anthony <span>Cheng</span>
+            <h1 id="photography-title" aria-label="Anthony Cheng">
+              <span aria-hidden="true">Anthony</span>
+              <span aria-hidden="true">Cheng</span>
             </h1>
           </div>
         </section>
