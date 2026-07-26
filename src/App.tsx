@@ -45,6 +45,24 @@ interface ToastState {
 
 type ViewName = "home" | "about";
 
+function getRequestedView(): ViewName {
+  return new URLSearchParams(window.location.search).get("view") === "about"
+    ? "about"
+    : "home";
+}
+
+function syncViewUrl(view: ViewName) {
+  const url = new URL(window.location.href);
+
+  if (view === "about") {
+    url.searchParams.set("view", "about");
+  } else {
+    url.searchParams.delete("view");
+  }
+
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
 function WindowControls({ onReset }: { onReset: () => void }) {
   return (
     <div className="lights" aria-label="Terminal window controls">
@@ -353,8 +371,9 @@ function CommandBar({
 }
 
 export default function App() {
-  const [booted, setBooted] = useState(false);
-  const [activeView, setActiveView] = useState<ViewName>("home");
+  const requestedView = getRequestedView();
+  const [booted, setBooted] = useState(requestedView === "about");
+  const [activeView, setActiveView] = useState<ViewName>(requestedView);
   const [toast, setToast] = useState<ToastState | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const toastId = useRef(0);
@@ -368,7 +387,13 @@ export default function App() {
     setActiveView("home");
     setToast(null);
     setBooted(false);
+    syncViewUrl("home");
     window.scrollTo({ top: 0 });
+  }, []);
+
+  const navigateToView = useCallback((view: ViewName) => {
+    setActiveView(view);
+    syncViewUrl(view);
   }, []);
 
   const runCommand = useCallback(
@@ -383,8 +408,8 @@ export default function App() {
 
       const command = commandAliases[normalizedCommand];
       const actions: Record<CommandName, () => void> = {
-        about: () => setActiveView("about"),
-        home: () => setActiveView("home"),
+        about: () => navigateToView("about"),
+        home: () => navigateToView("home"),
         photography: () => {
           window.location.assign("/studio/");
         },
@@ -402,7 +427,7 @@ export default function App() {
         showToast(`is ${normalizedCommand} a valid command? I'm not convinced`);
       }
     },
-    [showToast],
+    [navigateToView, showToast],
   );
 
   useEffect(() => {
@@ -454,7 +479,7 @@ export default function App() {
               <PortfolioIndex onCommand={runCommand} />
             </main>
           ) : (
-            <AboutView onNavigate={setActiveView} />
+            <AboutView onNavigate={navigateToView} />
           )}
 
           <div className="system-message reveal" style={{ "--delay": "230ms" } as React.CSSProperties}>

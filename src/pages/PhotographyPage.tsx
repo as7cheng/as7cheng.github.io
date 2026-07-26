@@ -169,7 +169,7 @@ export default function PhotographyPage() {
           <header className="photography-nav">
             <a href="/">Portfolio</a>
             <nav aria-label="Photography">
-              <a href="/">About</a>
+              <a href="/?view=about">About</a>
               <button
                 type="button"
                 onClick={() => {
@@ -187,7 +187,7 @@ export default function PhotographyPage() {
               <p>
                 Photographing quiet moments, distant places, and the strange beauty in between.
               </p>
-              <span>New York · personal archive</span>
+              <span>New York · personal archive · © 2026 Anthony Cheng</span>
             </div>
             <h1 id="photography-title" aria-label="Anthony Cheng">
               <span aria-hidden="true">Anthony</span>
@@ -196,16 +196,22 @@ export default function PhotographyPage() {
           </div>
         </section>
 
-        <section className="photography-slide archive-preview" aria-labelledby="archive-title">
+        <section className="photography-slide archive-preview" aria-label="Selected photography">
           <header className="archive-header">
             <span>Archive / 01</span>
             <span>Selected works</span>
           </header>
-          <div className="archive-coming-soon">
-            <p>Photography archive</p>
-            <h2 id="archive-title">Coming soon.</h2>
-            <span>A collection of places, people, and moments is being developed.</span>
-          </div>
+          <figure className="archive-photo">
+            <img
+              src="https://images.anthonysc.com/photos/nyc-dream-001-v1.jpg"
+              alt="Selected photograph from Anthony Cheng's New York archive"
+              decoding="async"
+            />
+          </figure>
+          <footer className="archive-footer">
+            <span>© 2026 Anthony Cheng. All rights reserved.</span>
+            <span>No commercial use without prior written permission.</span>
+          </footer>
         </section>
       </main>
 
