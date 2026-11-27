@@ -34,7 +34,6 @@ const commandAliases: Record<string, CommandName> = {
   phtography: "lux",
   phtograph: "lux",
   photo: "lux",
-  studio: "lux",
   github: "github",
   linkedin: "linkedin",
   clear: "clear",
