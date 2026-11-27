@@ -411,7 +411,7 @@ export default function App() {
         about: () => navigateToView("about"),
         home: () => navigateToView("home"),
         photography: () => {
-          window.location.assign("/studio/");
+          window.location.assign("https://lux.anthonysc.com/");
         },
         github: () => window.open("https://github.com/as7cheng", "_blank", "noopener"),
         linkedin: () =>
