@@ -1,6 +1,7 @@
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const BOOT_PROGRESS = "__progress__";
+const LUX_URL = "https://lux.anthonysc.com/";
 
 const bootLines = [
   "Initializing personal workspace...",
@@ -19,7 +20,7 @@ const bootLines = [
 type CommandName =
   | "about"
   | "home"
-  | "photography"
+  | "lux"
   | "github"
   | "linkedin"
   | "clear"
@@ -28,10 +29,12 @@ type CommandName =
 const commandAliases: Record<string, CommandName> = {
   about: "about",
   home: "home",
-  photography: "photography",
-  phtography: "photography",
-  photo: "photography",
-  studio: "photography",
+  lux: "lux",
+  photography: "lux",
+  phtography: "lux",
+  phtograph: "lux",
+  photo: "lux",
+  studio: "lux",
   github: "github",
   linkedin: "linkedin",
   clear: "clear",
@@ -208,15 +211,16 @@ function PortfolioIndex({ onCommand }: { onCommand: (command: string) => void })
         <ul className="nav-list">
           {[
             ["about", "about"],
-            ["photography", "photography"],
+            ["lux", "lux"],
             ["linkedin", "linkedin"],
             ["github", "github"],
           ].map(([command, label]) => (
             <li key={command}>
               <a
                 className="nav-link"
-                href={`#${command}`}
+                href={command === "lux" ? LUX_URL : `#${command}`}
                 onClick={(event) => {
+                  if (command === "lux") return;
                   event.preventDefault();
                   onCommand(command);
                 }}
@@ -410,15 +414,15 @@ export default function App() {
       const actions: Record<CommandName, () => void> = {
         about: () => navigateToView("about"),
         home: () => navigateToView("home"),
-        photography: () => {
-          window.location.assign("https://lux.anthonysc.com/");
+        lux: () => {
+          window.location.assign(LUX_URL);
         },
         github: () => window.open("https://github.com/as7cheng", "_blank", "noopener"),
         linkedin: () =>
           window.open("https://www.linkedin.com/in/anthonysscc/", "_blank", "noopener"),
         clear: () => showToast("Terminal cleared."),
         help: () =>
-          showToast("Commands: home · about · photography · linkedin · github · clear"),
+          showToast("Commands: home · about · lux · linkedin · github · clear"),
       };
 
       if (command) {
@@ -489,7 +493,7 @@ export default function App() {
             <p>
               {activeView === "home" ? (
                 <>
-                  Type <strong>/help</strong> for commands · photography archive is next
+                  Type <strong>/help</strong> for commands · explore the archive with /lux
                 </>
               ) : (
                 <>
